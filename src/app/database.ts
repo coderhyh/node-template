@@ -1,6 +1,6 @@
-import mysql from 'mysql2';
+import mysql from 'mysql2'
 
-import config from './config';
+import config from './config'
 
 const pool = mysql.createPool({
   host: config.MYSQL_HOST,
@@ -11,8 +11,8 @@ const pool = mysql.createPool({
 })
 
 pool.getConnection((err, conn) => {
-  conn.connect(err => {
-    err ? console.log('数据库连接失败', err) : console.log('数据库连接成功');
+  conn.connect((err) => {
+    err ? console.log('数据库连接失败', err) : console.log('数据库连接成功')
   })
 })
 
