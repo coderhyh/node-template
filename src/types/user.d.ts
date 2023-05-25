@@ -1,4 +1,6 @@
-export interface IUser {
-  userName: string
-  passWord: string
+declare namespace User {
+  interface IUser {
+    userName: string
+    passWord: string
+  }
 }

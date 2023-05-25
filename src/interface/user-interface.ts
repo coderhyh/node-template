@@ -1,18 +1,17 @@
-import type { Context, Next } from 'koa'
+import type { Context } from 'koa'
 
 import { password2md5 } from '~/common/utils'
 import errorTypes from '~/constants/error-types'
 import userService from '~/service/user-service'
-import type { IUser } from '~/types/user'
 
 class UserInterface {
-  async register_create(ctx: Context, next: Next) {
-    const user: IUser = ctx.request.body as IUser
+  async registerCreate(ctx: Context) {
+    const user = ctx.request.body as User.IUser
     user.passWord = password2md5(user.passWord)
     const res = await userService.createUser(user).catch((err) => err)
 
     if (Array.isArray(res) && res[0].affectedRows) {
-      ctx.body = {
+      ctx.body ??= {
         code: 200,
         message: '注册成功'
       }
@@ -21,8 +20,8 @@ class UserInterface {
     }
   }
 
-  async login_create(ctx: Context, next: Next) {
-    ctx.body = {
+  async loginCreate(ctx: Context) {
+    ctx.body ??= {
       code: 200,
       msg: '登陆成功',
       token: '123'
@@ -30,4 +29,4 @@ class UserInterface {
   }
 }
 
-export const { register_create, login_create } = new UserInterface()
+export const { registerCreate, loginCreate } = new UserInterface()

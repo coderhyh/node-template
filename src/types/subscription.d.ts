@@ -6,7 +6,6 @@ type errorTypesKey = keyof typeof errorTypes
 
 export type errorTypesItem = (typeof errorTypes)['PARAMETER_MISSIMG']
 
-export interface IErrorParams {
-  error: [errorMessage: errorTypesItem, ctx: Context, customErrorMsg?: string]
-  success: [name: string, age: number]
+export interface ISubscriptionParams {
+  error: [errorMessage: errorTypesItem & { [k: string]: any }, ctx: Context, customErrorMsg?: string]
 }

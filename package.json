@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "pm2 start pm2.json",
     "dev": "nodemon --watch src -w src -r tsconfig-paths/register main.ts --files",
     "build": "webpack",
     "lint": "eslint --ext .js,.ts src/ --fix",

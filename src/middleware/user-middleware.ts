@@ -3,11 +3,10 @@ import { Context, Next } from 'koa'
 import { password2md5 } from '~/common/utils'
 import errorTypes from '~/constants/error-types'
 import userService from '~/service/user-service'
-import { IUser } from '~/types/user'
 
 class UserMiddleware {
-  async register_verifyParams(ctx: Context, next: Next) {
-    const { userName, passWord }: IUser = ctx.request.body as IUser
+  async registerVerifyParams(ctx: Context, next: Next) {
+    const { userName, passWord } = ctx.request.body as User.IUser
     const userNameReg = /^[a-zA-Z\d]{8,16}$/g
     const passWordReg = /^[\da-zA-z_]{8,16}$/g
     if (!userNameReg.test(userName) || !passWordReg.test(passWord)) {
@@ -23,8 +22,8 @@ class UserMiddleware {
     await next()
   }
 
-  async login_verifyParams(ctx: Context, next: Next) {
-    const user: IUser = ctx.request.body as IUser
+  async loginVerifyParams(ctx: Context, next: Next) {
+    const user = ctx.request.body as User.IUser
     user.passWord = password2md5(user.passWord)
     const res = await userService.getUserInfo(user)
     if (!res.length) {
@@ -34,4 +33,4 @@ class UserMiddleware {
     await next()
   }
 }
-export const { register_verifyParams, login_verifyParams } = new UserMiddleware()
+export const { registerVerifyParams, loginVerifyParams } = new UserMiddleware()
